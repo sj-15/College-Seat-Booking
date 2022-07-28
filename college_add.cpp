@@ -507,7 +507,7 @@ void menu()
     }
 }
 
-bool search_mob(string mob_no)
+bool search_mob(string mob_no, string dob)
 {
 
     ifstream fin;
@@ -526,48 +526,120 @@ bool search_mob(string mob_no)
             row.push_back("");
             break;
         }
-        if (row[0] == mob_no)
+        if (row[0] == mob_no && dob == "")
         {
             return true;
         }
+        else if (row[0] == mob_no && row[1] == dob)
+            return true;
     }
     fin.close();
     return false;
 }
 
+bool check_mob(string s)
+{
+    if (s.size() != 10)
+        return false;
+    for (auto it : s)
+    {
+        if (it < '0' or it > '9')
+            return false;
+    }
+    return true;
+}
+bool check_dob(string s)
+{
+    if (s.size() != 8)
+        return false;
+    for (auto it : s)
+    {
+        if (it < '0' or it > '9')
+            return false;
+    }
+    return true;
+}
 void Register()
 {
-    fstream file;
-    file.open("register.csv", ios::app);
     system("cls");
     design();
+    fstream file;
+    file.open("register.csv", ios::app);
     string mob_no, dob;
     string user_name;
     cout << "\t\t Enter your Mobile No.\n";
     cin >> mob_no;
+    if (!check_mob(mob_no))
+    {
+        cout << "\t\t Invalid mobile no.\n";
+        cout << "\t\t Please reenter\n";
+        getch();
+        Register();
+    }
     cout << "\t\t Enter your Date of birth(DDMMYYYY)\n";
     cin >> dob;
+    if (!check_dob(dob))
+    {
+        cout << "\t\t Invalid date of birth\n";
+        cout << "\t\t Please reenter\n";
+        getch();
+        Register();
+    }
     cout << "\t\t Enter your full name\n";
     getline(cin >> ws, user_name);
 
     system("cls");
     design();
-    if (search_mob(mob_no))
+    if (search_mob(mob_no, ""))
     {
         cout << "\t\t Mobile no. already exist\n";
         return;
     }
     else
     {
-        file << mob_no << ',' << dob << ',' << user_name << "";
+        file << mob_no << ',' << dob << ',' << user_name << "\n";
         file.close();
-        cout << "\t\t  Registration successful\n";
+        cout << "\t\t Registration successful\n";
         getch();
         menu();
     }
 }
 void login()
 {
+    system("cls");
+    design();
+    string mob_no, dob;
+    cout << "\t    Enter your Mobile No.\n";
+    cin >> mob_no;
+    if (!check_mob(mob_no))
+    {
+        cout << "\t\t Invalid mobile no.\n";
+        cout << "\t\t Please reenter\n";
+        getch();
+        login();
+    }
+    cout << "\t    Enter your Date of birth(DDMMYYYY)\n";
+    cin >> dob;
+    if (!check_dob(dob))
+    {
+        cout << "\t\t Invalid date of birth\n";
+        cout << "\t\t Please reenter\n";
+        getch();
+        login();
+    }
+    system("cls");
+    design();
+    if (search_mob(mob_no, dob))
+    {
+        cout << "\t\t\t Welcome!\n";
+        getch();
+        menu();
+    }
+    else
+    {
+        cout << "\t Mobile no./Date of birth no matched\n";
+        return;
+    }
 }
 
 int main()
@@ -576,14 +648,23 @@ int main()
     design();
     cout << "\t\t1. Register\n";
     cout << "\t\t2. Login\n";
+    cout << "\t\t3. Exit\n";
     int entry_key;
     cin >> entry_key;
     if (entry_key == 1)
     {
         Register();
+        main();
+    }
+    else if (entry_key == 2)
+    {
+        login();
+        main();
     }
     else
-        login();
+    {
+        exit(0);
+    }
 
     return 0;
 }

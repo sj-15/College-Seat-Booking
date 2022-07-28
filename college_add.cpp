@@ -465,10 +465,16 @@ void withdraw()
         update_after_withdraw(college_id, dept);
     }
 }
+
 int main()
 {
     system("cls");
     design();
+    cout << "\t\t1. Register\n";
+    cout << "\t\t2. Login\n";
+    int entry_key;
+    cin >> entry_key;
+    if(entry_key == 1)
     cout << "\t\t------------\n";
     cout << "\t\t|   MENU   |\n";
     cout << "\t\t------------\n";

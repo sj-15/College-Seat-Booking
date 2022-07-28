@@ -1,6 +1,10 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <fstream>
+#include <cstring>
 #include <conio.h>
+#include <iomanip> 
 #include <ctime>
+#include <vector>
 using namespace std;
 
 void design()

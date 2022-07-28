@@ -509,8 +509,9 @@ void menu()
 
 bool search_mob(string mob_no)
 {
+
     ifstream fin;
-    fin.open("reg_details.csv", ios::in);
+    fin.open("register.csv", ios::in);
     string line, word;
     vector<string> row;
     while (fin)
@@ -536,6 +537,8 @@ bool search_mob(string mob_no)
 
 void Register()
 {
+    fstream file;
+    file.open("register.csv", ios::app);
     system("cls");
     design();
     string mob_no, dob;
@@ -546,8 +549,7 @@ void Register()
     cin >> dob;
     cout << "\t\t Enter your full name\n";
     getline(cin >> ws, user_name);
-    fstream file;
-    file.open("reg_details.csv", ios::in | ios::out | ios::app);
+
     system("cls");
     design();
     if (search_mob(mob_no))
@@ -557,12 +559,12 @@ void Register()
     }
     else
     {
+        file << mob_no << ',' << dob << ',' << user_name << "";
+        file.close();
         cout << "\t\t  Registration successful\n";
-        file << mob_no << ',' << dob << ',' << user_name << "\n";
         getch();
         menu();
     }
-    file.close();
 }
 void login()
 {

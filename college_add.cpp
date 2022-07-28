@@ -2,7 +2,7 @@
 #include <fstream>
 #include <cstring>
 #include <conio.h>
-#include <iomanip> 
+#include <iomanip>
 #include <ctime>
 #include <vector>
 using namespace std;
@@ -466,15 +466,10 @@ void withdraw()
     }
 }
 
-int main()
+void menu()
 {
     system("cls");
     design();
-    cout << "\t\t1. Register\n";
-    cout << "\t\t2. Login\n";
-    int entry_key;
-    cin >> entry_key;
-    if(entry_key == 1)
     cout << "\t\t------------\n";
     cout << "\t\t|   MENU   |\n";
     cout << "\t\t------------\n";
@@ -490,15 +485,15 @@ int main()
     {
     case 1:
         show_colleges();
-        main();
+        menu();
         break;
     case 2:
         check_status();
-        main();
+        menu();
         break;
     case 3:
         withdraw();
-        main();
+        menu();
         break;
     case 4:
         cout << "\t\tThank You!\n";
@@ -507,8 +502,86 @@ int main()
         cout << "\t\tInvalid option\n";
         cout << "\t\tChoose valid option....\n";
         getch();
-        main();
+        menu();
         break;
     }
+}
+
+bool search_mob(string mob_no)
+{
+    ifstream fin;
+    fin.open("registration_details.csv", ios::in);
+    string line, word;
+    vector<string> row;
+    while (fin)
+    {
+        row.clear();
+        getline(fin, line);
+        stringstream s(line);
+        while (getline(s, word, ','))
+            row.push_back(word);
+        if (!s && word.empty())
+        {
+            row.push_back("");
+            break;
+        }
+        if (row[0] == mob_no)
+        {
+            return true;
+        }
+    }
+    fin.close();
+    return false;
+}
+
+void Register()
+{
+    system("cls");
+    design();
+    string mob_no, dob;
+    string user_name;
+    cout << "\t\t Enter your Mobile No.\n";
+    cin >> mob_no;
+    cout << "\t\t Enter your Date of birth(DDMMYYYY)\n";
+    cin >> dob;
+    cout << "\t\t Enter your full name\n";
+    getline(cin >> ws, user_name);
+    fstream file;
+    file.open("registration_details.csv", ios::in | ios::out | ios::trunc | ios::app);
+    system("cls");
+    design();
+    if (search_mob(mob_no))
+    {
+        cout << "\t\t Mobile no. already exist\n";
+        return;
+    }
+    else
+    {
+        cout << "\t\t  Registration successful\n";
+        file << mob_no << ',' << dob << ',' << user_name << "\n";
+        getch();
+        menu();
+    }
+    file.close();
+}
+void login()
+{
+}
+
+int main()
+{
+    system("cls");
+    design();
+    cout << "\t\t1. Register\n";
+    cout << "\t\t2. Login\n";
+    int entry_key;
+    cin >> entry_key;
+    if (entry_key == 1)
+    {
+        Register();
+    }
+    else
+        login();
+
     return 0;
 }

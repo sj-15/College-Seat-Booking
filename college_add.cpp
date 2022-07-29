@@ -569,10 +569,16 @@ void Register()
     string user_name;
     cout << "\t\t Enter your Mobile No.\n";
     cin >> mob_no;
+    if (mob_no == "-1")
+    {
+        exit(0);
+        return;
+    }
     if (!check_mob(mob_no))
     {
         cout << "\t\t Invalid mobile no.\n";
         cout << "\t\t Please reenter\n";
+        cout << "\t\t Enter -1 for exit\n";
         getch();
         Register();
     }
@@ -582,6 +588,7 @@ void Register()
     {
         cout << "\t\t Invalid date of birth\n";
         cout << "\t\t Please reenter\n";
+        cout << "\t\t Enter -1 for exit\n";
         getch();
         Register();
     }
@@ -593,6 +600,7 @@ void Register()
     if (search_mob(mob_no, ""))
     {
         cout << "\t\t Mobile no. already exist\n";
+        getch();
         return;
     }
     else
@@ -611,10 +619,16 @@ void login()
     string mob_no, dob;
     cout << "\t    Enter your Mobile No.\n";
     cin >> mob_no;
+    if (mob_no == "-1")
+    {
+        exit(0);
+        return;
+    }
     if (!check_mob(mob_no))
     {
         cout << "\t\t Invalid mobile no.\n";
         cout << "\t\t Please reenter\n";
+        cout << "\t\t Enter -1 for exit\n";
         getch();
         login();
     }
@@ -624,6 +638,7 @@ void login()
     {
         cout << "\t\t Invalid date of birth\n";
         cout << "\t\t Please reenter\n";
+        cout << "\t\t Enter -1 for exit\n";
         getch();
         login();
     }
@@ -637,7 +652,8 @@ void login()
     }
     else
     {
-        cout << "\t Mobile no./Date of birth no matched\n";
+        cout << "\t Mobile no./Date of birth not matched\n";
+        getch();
         return;
     }
 }

@@ -470,13 +470,13 @@ void menu()
 {
     system("cls");
     design();
-    cout << "\t\t------------\n";
-    cout << "\t\t|   MENU   |\n";
-    cout << "\t\t------------\n";
-    cout << "\t\t1: Book seat\n";
-    cout << "\t\t2: Current status\n";
-    cout << "\t\t3: Withdraw seat\n";
-    cout << "\t\t4: Exit\n";
+    cout << "\t\t  ------------\n";
+    cout << "\t\t  |   MENU   |\n";
+    cout << "\t\t  ------------\n";
+    cout << "\t\t  1: Book seat\n";
+    cout << "\t\t  2: Current status\n";
+    cout << "\t\t  3: Withdraw seat\n";
+    cout << "\t\t  4: Exit\n";
 
     int input;
     cin >> input;
@@ -567,7 +567,7 @@ void Register()
     file.open("register.csv", ios::app);
     string mob_no, dob;
     string user_name;
-    cout << "\t\t Enter your Mobile No.\n";
+    cout << "\t\tEnter your Mobile No.\n";
     cin >> mob_no;
     if (mob_no == "-1")
     {
@@ -582,7 +582,7 @@ void Register()
         getch();
         Register();
     }
-    cout << "\t\t Enter your Date of birth(DDMMYYYY)\n";
+    cout << "\t  Enter your Date of birth(DDMMYYYY)\n";
     cin >> dob;
     if (!check_dob(dob))
     {
@@ -592,14 +592,14 @@ void Register()
         getch();
         Register();
     }
-    cout << "\t\t Enter your full name\n";
+    cout << "\t\tEnter your full name\n";
     getline(cin >> ws, user_name);
 
     system("cls");
     design();
     if (search_mob(mob_no, ""))
     {
-        cout << "\t\t Mobile no. already exist\n";
+        cout << "\t\tMobile no. already exist\n";
         getch();
         return;
     }
@@ -617,7 +617,7 @@ void login()
     system("cls");
     design();
     string mob_no, dob;
-    cout << "\t    Enter your Mobile No.\n";
+    cout << "\t\tEnter your Mobile No.\n";
     cin >> mob_no;
     if (mob_no == "-1")
     {
@@ -632,7 +632,7 @@ void login()
         getch();
         login();
     }
-    cout << "\t    Enter your Date of birth(DDMMYYYY)\n";
+    cout << "\t  Enter your Date of birth(DDMMYYYY)\n";
     cin >> dob;
     if (!check_dob(dob))
     {
@@ -646,7 +646,7 @@ void login()
     design();
     if (search_mob(mob_no, dob))
     {
-        cout << "\t\t\t Welcome!\n";
+        cout << "\t\t\tWelcome!\n";
         getch();
         menu();
     }
